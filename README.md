@@ -26,21 +26,4 @@ Bienvenue dans la documentation de mon projet Zend Framework 1.
 
 ---
 
-## Navigation rapide
 
-Clique sur un des liens pour accéder directement à la section correspondante :
-
-- [Accueil](README.md)
-- [Introduction](introduction.md)
-- [Guide complet](guide-complet.md)
-
----
-
-## Notes
-
-- Assure-toi que les fichiers `.md` existent dans le même dossier que ce README.
-- Ces liens fonctionnent parfaitement sur GitHub, GitLab ou autres lecteurs Markdown.
-
----
-
-*Bonne lecture !*
