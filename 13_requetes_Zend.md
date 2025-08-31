@@ -113,3 +113,63 @@ Nom du schéma ou de la base de données si ce n’est pas la base par défaut.
  - protected $_sequence = false;
 Indique si la clé primaire est auto-incrémentée (true par défaut).
 Si ta clé primaire n’est pas auto-incrémentée, tu peux la passer à false.
+
+## 🔹 Méthodes pour récupérer des données
+
+| Méthode / type         | Retourne quoi ?                    | Exemple d’utilisation            | Boucle dans la vue / Accès aux données |
+|------------------------|----------------------------------|---------------------------------|---------------------------------------|
+| `$db->fetchAll($sql)`  | Tableau de tableaux associatifs   | `$users = $db->fetchAll($sql);` | `foreach ($users as $user) { echo $user['username']; }` |
+| `$db->fetchRow($sql)`  | Tableau associatif (1 ligne)      | `$user = $db->fetchRow($sql);`  | `echo $user['email'];` |
+| `$db->fetchOne($sql)`  | Valeur scalaire (string/int)      | `$count = $db->fetchOne($sql);` | `echo $count;` |
+| `$this->fetchAll($select)` | Zend_Db_Table_Rowset (objet)  | `$users = $this->fetchAll($select);` | `foreach ($users as $user) { echo $user->username; }` |
+| `$this->fetchRow($select)` | Zend_Db_Table_Row (objet)      | `$user = $this->fetchRow($select);` | `echo $user->email;` |
+
+> 💡 Astuce : on peut convertir un objet Row ou Rowset en tableau via `$row->toArray()`.
+
+---
+
+### Exemples
+
+```php
+            --- Utilisation de $this->getAdapter() pour un tableau associatif ---
+public function getUsersArray()
+{
+    $db = $this->getAdapter();
+
+    $sql = $db->select()->from($this->_name);
+
+    $result = $db->fetchAll($sql); // tableau associatif
+
+    foreach ($result as $row) {
+        echo "Nom: " . $row['username'] . " - Email: " . $row['email'] . "<br>";
+    }
+
+    return $result; // tableau de tableaux
+}
+        ---- sortie ---
+[
+  ['id' => 1, 'username' => 'Alice', 'email' => 'alice@mail.com'],
+  ['id' => 2, 'username' => 'Bob', 'email' => 'bob@mail.com'],
+]
+----------------------------------------------------------------------------
+           --- Utilisation de $this de la classe pour un objet ---
+
+public function getUsersObject()
+{
+    $select = $this->select()->from($this->_name);
+
+    $rowset = $this->fetchAll($select); // Rowset (objet)
+
+    foreach ($rowset as $row) {
+        echo "Nom: " . $row->username . " - Email: " . $row->email . "<br>";
+    }
+
+    return $rowset; // objet Rowset
+}
+
+      --- sortie ---
+$user = $rowset->current(); // premier utilisateur
+echo $user->username;   //accès à la valeur de la propiété username de l'objet
+print_r($user->toArray());  // pour convertir un objet en tableau['id'=>1, 'username'=>'Alice', ...]
+
+
