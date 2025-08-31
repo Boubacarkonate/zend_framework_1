@@ -1,5 +1,3 @@
-# 1. Introduction à Zend Framework 1
-
 <h1 style="color:#00bcd4;">1. Introduction à Zend Framework 1</h1>
 
 <p>
