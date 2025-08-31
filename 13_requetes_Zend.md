@@ -94,3 +94,22 @@ $model->update(
 
 // DELETE
 $model->delete("id = 4");
+```
+## Les principales propriétés de Zend_Db_Table_Abstract
+- 1. protected $_name
+ -     protected $_name = 'users';        // obligatoire si le nom n'est pas devinable
+Nom de la table SQL (on l’a vu).
+
+- 2. protected $_primary
+ -  protected $_primary = 'user_id';   // obligatoire si != "id"
+Clé(s) primaire(s) de la table.
+➡️ Peut être une chaîne ('id') ou un tableau (si ta table a une clé primaire composée).
+
+- 3. protected $_schema
+ - protected $_schema = 'zf1_crud';
+Nom du schéma ou de la base de données si ce n’est pas la base par défaut.
+
+- 4. protected $_sequence
+ - protected $_sequence = false;
+Indique si la clé primaire est auto-incrémentée (true par défaut).
+Si ta clé primaire n’est pas auto-incrémentée, tu peux la passer à false.

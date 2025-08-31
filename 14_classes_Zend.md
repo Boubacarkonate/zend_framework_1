@@ -111,7 +111,7 @@ $result = $db-&gt;fetchAll('SELECT * FROM articles WHERE actif = ?', 1);
     public function init()
     {
         $this-&gt;setMethod('post');
-
+                    % type de champ, attribut name dans le HTML
         $this-&gt;addElement('text', 'nom', array(
             'label'    =&gt; 'Nom',
             'required' =&gt; true,
@@ -124,6 +124,29 @@ $result = $db-&gt;fetchAll('SELECT * FROM articles WHERE actif = ?', 1);
         ));
     }
 }
+
+<h3>Autres type des champs</h3>
+'text' → Zend_Form_Element_Text (champ input classique)
+'password' → Zend_Form_Element_Password
+'textarea' → Zend_Form_Element_Textarea
+'select' → Zend_Form_Element_Select
+'checkbox' → Zend_Form_Element_Checkbox
+etc.
+
+<h4>Autres type des champs</h4>
+Donc ici : 'text' dit à Zend : crée un champ texte (input type="text").
+🔹 'username'
+
+👉 C’est le nom de l’élément (= attribut name dans le HTML).
+Exemple rendu en HTML :
+input type="text" name="username" id="username">
+⚠️ Ce name est aussi la clé pour récupérer la valeur après soumission du formulaire.
+Exemple :
+
+if ($form->isValid($_POST)) {
+    $valeur = $form->getValue('username');
+}
+
 </code></pre>
 
 <h2>5. Authentification : <code>Zend_Auth</code></h2>
